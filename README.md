@@ -1,342 +1,169 @@
-# PornTrex Downloader Browser Extension (Chrome, Firefox, Edge, Opera, Brave)
+# PornTrex Downloader (Browser Extension)
 
+> Download PornTrex videos as MP4 files directly from the watch page in your browser.
 
-## Related
+PornTrex Downloader is a browser extension built for users who want a cleaner way to save PornTrex videos for offline viewing. It detects supported video sources from PornTrex pages, lets you pick from the qualities exposed by the player, and saves finished downloads as standard MP4 files that are easy to replay later.
 
----
-<details>
-<summary>
-  Research
-</summary>
-# How to Download Porntrex Videos: Technical Analysis of Stream Patterns, CDNs, and Download Methods
-*A comprehensive research document analyzing Porntrex's video infrastructure, embed patterns, stream formats, and optimal download strategies using modern tools*
-**Authors**: SERP Apps  
-**Date**: December 2025  
-**Version**: 1.0
----
-- [PornTrex Downloader gist](https://gist.github.com/devinschumacher/0528f22cdc45c50cf6d6eb82e2fb3106)
-## Abstract
+- Save PornTrex videos without digging through source code or network logs
+- Download supported MP4 and HLS-backed video streams from watch pages
+- Choose from the quality options exposed by the player
+- Keep offline copies for travel, archives, or later viewing
+- Use a browser-first workflow instead of command-line tools
 
-This research document provides a technical overview of Porntrex's video delivery pipeline, including KVS-style player configuration, HLS/MP4 assets, and CDN request patterns used for playback and downloads.
+## Links
+
+- :rocket: Get it here: [PornTrex Downloader](https://serp.ly/porntrex-downloader)
+- :new: Latest release: [GitHub Releases](https://github.com/serpapps/porntrex-downloader/releases/latest)
+- :question: Help center: [SERP Help](https://help.serp.co/en/)
+- :beetle: Report bugs: [GitHub Issues](https://github.com/serpapps/porntrex-downloader/issues)
+- :bulb: Request features: [Feature Requests](https://github.com/serpapps/porntrex-downloader/issues)
+
+## Preview
+
+![PornTrex Downloader workflow preview](assets/workflow-preview.webp)
 
 ## Table of Contents
 
-1. [Introduction](#1-introduction)
-2. [Porntrex Video Infrastructure Overview](#2-porntrex-video-infrastructure-overview)
-3. [URL Patterns and Detection](#3-url-patterns-and-detection)
-4. [Stream Formats and CDN Analysis](#4-stream-formats-and-cdn-analysis)
-5. [yt-dlp Implementation Strategies](#5-yt-dlp-implementation-strategies)
-6. [FFmpeg Processing Techniques](#6-ffmpeg-processing-techniques)
-7. [Alternative Tools and Backup Methods](#7-alternative-tools-and-backup-methods)
-8. [Porntrex API Integration](#8-porntrex-api-integration)
-9. [Implementation Recommendations](#9-implementation-recommendations)
-10. [Troubleshooting and Edge Cases](#10-troubleshooting-and-edge-cases)
-11. [Conclusion](#11-conclusion)
+- [Why PornTrex Downloader](#why-porntrex-downloader)
+- [Features](#features)
+- [How It Works](#how-it-works)
+- [Step-by-Step Tutorial: How to Download Videos from PornTrex](#step-by-step-tutorial-how-to-download-videos-from-porntrex)
+- [Supported Formats](#supported-formats)
+- [Who It's For](#who-its-for)
+- [Common Use Cases](#common-use-cases)
+- [Troubleshooting](#troubleshooting)
+- [Trial & Access](#trial--access)
+- [Installation Instructions](#installation-instructions)
+- [FAQ](#faq)
+- [License](#license)
+- [Notes](#notes)
+- [About PornTrex](#about-porntrex)
 
----
+## Why PornTrex Downloader
 
-## 1. Introduction
+PornTrex pages often expose their media through player configurations and stream URLs that are awkward to save manually. Generic downloaders can miss the real source, pull a preview instead of the main video, or fail once the page switches playback methods.
 
-Porntrex is a video hosting site that commonly uses a KVS-style player configuration with MP4 and HLS variants. The site exposes direct media URLs in player configuration blocks or inline JavaScript, which can be extracted and downloaded with standard tooling.
+PornTrex Downloader is built to simplify that workflow. Open the watch page, let the extension detect the stream, choose the quality you want, and export the final file as MP4 without extra software.
 
-### 1.1 Research Scope
+## Features
 
-- Porntrex watch pages and embed endpoints
-- Player configuration payloads (flashvars, JSON, or inline scripts)
-- HLS manifests and MP4 direct file URLs
-- Common CDN hostnames and URL query patterns
+- Detects supported PornTrex video sources from watch pages
+- Multi-source detection covering flashvars, HTML5 video, and CDN monitoring
+- In-page download button built into the video player
+- Handles direct MP4 and supported HLS-backed playback flows
+- Converts HLS streams to standard MP4 files in-browser
+- Lists available quality variants when multiple resolutions exist
+- Right-click context menu for quick downloads
+- Saves output as MP4 for broad playback compatibility
+- Auto-saves to an organized PornTrex subfolder in Downloads
+- Works on Chrome, Edge, Brave, Opera, Firefox, Whale, and Yandex
 
-### 1.2 Methodology
+## How It Works
 
-- Inspect player initialization scripts for video_url, hls, and file keys
-- Capture network requests while playback starts
-- Validate URLs with yt-dlp and ffprobe
-- Document stream variants by quality and codec
+1. Install the extension from the latest release.
+2. Open a PornTrex video page and start playback.
+3. Let the extension detect the active media source.
+4. Open the popup or use the in-page download button on the player.
+5. Review the available formats and quality options.
+6. Pick the quality you want.
+7. Download the video and save the MP4 locally.
 
----
+## Step-by-Step Tutorial: How to Download Videos from PornTrex
 
-## 2. Porntrex Video Infrastructure Overview
+1. Install PornTrex Downloader from the release page or product page.
+2. Open PornTrex and navigate to the video you want to save.
+3. Press play so the page loads the real media stream.
+4. Click the in-page download button on the player, or open the extension popup.
+5. Wait for the stream list to appear and review the available options.
+6. Choose the resolution you want if more than one option is available.
+7. Start the download and wait for the MP4 export to finish.
+8. Open the saved file from your Downloads/PornTrex folder.
 
-### 2.1 Video Hosting Types
+## Supported Formats
 
-- Direct MP4 files hosted on CDN
-- HLS streams exposed via m3u8 playlists
-- Thumbnail and preview assets hosted on static subdomains
+- Input: supported PornTrex watch-page video sources
+- Output: MP4
 
-### 2.2 CDN Architecture
+Saved files use MP4 so they are easier to replay on standard media players, move between devices, or archive locally.
 
-- Primary site domain: porntrex.com
-- CDN patterns: cdn.porntrex.com, s1.porntrex.com, s2.porntrex.com
-- KVS get_file endpoint as the gateway to media assets
+## Who It's For
 
-### 2.3 Video Processing Pipeline
+- PornTrex viewers who want offline access
+- Users archiving videos they are allowed to save
+- People who want a browser tool instead of stream extraction scripts
+- Users who need a simple repeatable workflow for one-off downloads
+- Anyone organizing personal downloads into a cleaner local library
 
-1. User loads watch page
-2. Player script assembles flashvars / JSON config
-3. video_url or hls_url is resolved via get_file
-4. Client requests MP4 or m3u8 from CDN
+## Common Use Cases
 
-### 2.4 Access Control and Authentication
+- Save a PornTrex video before it disappears
+- Keep a local MP4 copy for offline viewing
+- Grab the highest available quality from a watch page
+- Start downloads directly from the player or extension popup
+- Avoid manually inspecting page scripts for media URLs
 
-- Most public videos are accessible without auth
-- Some videos require session cookies or age gate confirmation
-- Signed URLs may expire; capture fresh URLs near download time
+## Troubleshooting
 
----
+**The extension is not detecting the video**  
+Start playback first and wait a few seconds so the page loads the stream.
 
-## 3. URL Patterns and Detection
+**The wrong source was detected**  
+Refresh the page, press play again, and retry after the player fully loads.
 
-### 3.1 Watch Page URL Patterns
+**No quality picker is shown**
+Some pages expose only one usable source. In that case, the extension uses the available stream.
 
-```
-https://porntrex.com/video/<slug>/
-https://porntrex.com/video/<id>/<slug>/
-https://porntrex.com/videos/<slug>/
-```
+**The download failed partway through**
+Check your connection and refresh the page before starting again.
 
-### 3.2 Embed URL Patterns
+**The page requires account access**
+The extension only works on media you can already open and play in your active browser session.
 
-```
-https://porntrex.com/embed/<id>
-https://porntrex.com/embed/<id>?autoplay=1
-```
+## Trial & Access
 
-### 3.3 Direct Media and CDN URL Patterns
+- Includes **3 free downloads** so you can test the workflow first
+- Email sign-in uses secure one-time password verification
+- No credit card required for the trial
+- Unlimited downloads are available with a paid license
 
-```
-https://porntrex.com/get_file/<hash>/<id>/<quality>.mp4
-https://porntrex.com/get_file/<hash>/<id>/playlist.m3u8
-https://cdn.porntrex.com/videos/<id>/<file>.mp4
-```
+Start here: [https://serp.ly/porntrex-downloader](https://serp.ly/porntrex-downloader)
 
-### 3.4 Regex Patterns for URL Extraction
+## Installation Instructions
 
-```regex
-porntrex\.com/video/([A-Za-z0-9_-]+)
-porntrex\.com/embed/([0-9]+)
-get_file/[^/]+/([0-9]+)/
-```
+1. Open the latest release page: [GitHub Releases](https://github.com/serpapps/porntrex-downloader/releases/latest)
+2. Download the build for your browser.
+3. Install the extension.
+4. Open PornTrex and start a video page.
+5. Use the extension popup to detect and download the media.
 
-### 3.5 Command-line URL Extraction
+## FAQ
 
-```bash
-grep -oE "https?://[^'\" ]+\.(mp4|m3u8|m4s|ts)" page.html | sort -u
-grep -oE "porntrex\.com/(video|embed)/[^'\" ]+" page.html | sort -u
-```
+**Can I download PornTrex videos as MP4?**  
+Yes. The extension exports supported videos as MP4 files.
 
----
+**Do I need extra software?**  
+No. The workflow runs inside the browser extension.
 
-## 4. Stream Formats and CDN Analysis
+**Does it work on every page?**  
+It works on supported watch-page playback flows. Detection depends on how the page exposes the media.
 
-### 4.1 Stream Formats
+**Where are files saved?**
+They are saved to your default Downloads location, typically inside a PornTrex subfolder.
 
-| Format | Extension | Notes |
-|--------|-----------|-------|
-| MP4 (progressive) | .mp4 | Direct file URLs; easiest to download |
-| HLS (adaptive) | .m3u8 | Playlist-based; download via yt-dlp or ffmpeg |
-| fMP4 segments | .m4s | Segmented assets referenced by HLS playlists |
+**Is my data safe?**
+Yes. Video processing happens entirely in your browser. Authentication uses secure OTP with no passwords stored.
 
-### 4.2 Typical Quality Ladder
+## License
 
-| Quality | Typical Resolution | Notes |
-|---------|--------------------|-------|
-| Low | 360p - 480p | Fast preview streams or mobile variants |
-| Medium | 720p | Common default for web playback |
-| High | 1080p+ | Available when source uploads are higher quality |
+This repository is distributed under the proprietary SERP Apps license in the [LICENSE](LICENSE) file. Review that file before copying, modifying, or redistributing any part of this project.
 
-### 4.3 CDN URL Construction and Query Parameters
+## Notes
 
-- get_file URLs often include a hash segment and short-lived tokens
-- Quality is commonly encoded in the filename or path
-- Referer and Origin headers can affect access
+- Only download content you own or have explicit permission to save
+- An internet connection is required for downloads
+- Quality depends on the media source exposed by PornTrex
+- Must press play before detection can begin
 
-### 4.4 Validation and Inspection Commands
+## About PornTrex
 
-```bash
-ffprobe -hide_banner -show_streams "video.mp4"
-ffprobe -hide_banner -show_format "video.mp4"
-ffprobe -hide_banner -i "playlist.m3u8"
-```
-
----
-
-## 5. yt-dlp Implementation Strategies
-
-yt-dlp can parse direct MP4 URLs or HLS manifests. Use cookies when content is gated and prefer format selection to control quality.
-
-### 5.1 Basic Usage
-
-```bash
-yt-dlp [OPTIONS] [--] URL [URL...]
-yt-dlp -F "https://example.com/watch/123"
-```
-
-### 5.2 Authentication and Cookies
-
-- Use --cookies-from-browser to re-use a logged-in session if required
-- Pass referer headers with --add-header when the CDN enforces origin checks
-
-### 5.3 Format Selection and Output Templates
-
-```bash
-yt-dlp -f bestvideo+bestaudio/best "URL"
-yt-dlp -o "%(title)s.%(ext)s" "URL"
-yt-dlp --download-archive archive.txt "URL"
-```
-
-### 5.4 Site-Specific Examples
-
-```bash
-yt-dlp "https://porntrex.com/video/<slug>/"
-yt-dlp -F "https://porntrex.com/video/<slug>/"
-yt-dlp -f best "https://porntrex.com/video/<slug>/"
-```
-
-### 5.5 Batch and Archive Mode
-
-```bash
-yt-dlp -a urls.txt --download-archive archive.txt
-yt-dlp --no-overwrites --continue "URL"
-```
-
-### 5.6 Error Handling Patterns
-
-- Use --retries and --fragment-retries for flaky HLS
-- If 403/401 occurs, refresh cookies or add referer headers
-- Use --downloader aria2c for large MP4 files
-
----
-
-## 6. FFmpeg Processing Techniques
-
-FFmpeg is useful for remuxing HLS playlists into MP4 and validating codecs without re-encoding.
-
-### 6.1 Inspect and Validate Streams
-
-```bash
-ffprobe -hide_banner -i "playlist.m3u8"
-ffmpeg -i "playlist.m3u8" -c copy output.mp4
-```
-
-### 6.2 Common Remux and Repair Patterns
-
-```bash
-ffmpeg -i "playlist.m3u8" -c copy output.mp4
-ffmpeg -i input.mp4 -c copy -movflags +faststart output.mp4
-ffprobe -hide_banner -show_streams output.mp4
-```
-
----
-
-## 7. Alternative Tools and Backup Methods
-
-### 7.1 Streamlink
-
-```bash
-streamlink "https://porntrex.com/video/<slug>/" best -o output.mp4
-streamlink --loglevel debug "URL" best
-```
-
-### 7.2 aria2c
-
-```bash
-aria2c -o video.mp4 "https://cdn.porntrex.com/videos/<id>/<file>.mp4"
-aria2c -i urls.txt -j 4
-```
-
-### 7.3 gallery-dl
-
-```bash
-gallery-dl "https://porntrex.com/video/<slug>/"
-gallery-dl -g "URL"
-```
-
-### 7.4 Browser DevTools
-
-- Filter Network tab for m3u8, mp4, or get_file requests
-- Check player initialization scripts for video_url or hls_url
-- Copy request URL as cURL to preserve headers
-
----
-
-## 8. Porntrex API Integration
-
-### 8.1 Known Endpoints
-
-- None documented; rely on page and player data extraction
-
-### 8.2 Example Requests
-
-```
-# No public API calls identified; extract URLs from HTML/player data
-```
-
-### 8.3 Token and Session Handling
-
-- Many KVS deployments do not expose a documented API
-- If a tokenized endpoint exists, capture it from the player payload
-
----
-
-## 9. Implementation Recommendations
-
-### 9.1 Detection Hierarchy
-
-- Parse inline player config for direct MP4 URLs
-- Fallback to HLS playlist URLs (m3u8)
-- If both are absent, scan Network logs for get_file requests
-
-### 9.2 Site-Specific Notes
-
-- Prefer direct MP4 when available for fastest downloads
-- Cache resolved URLs briefly; refresh if tokenized
-- Surface download buttons near player and in grids where possible
-
-### 9.3 Storage and Naming Strategy
-
-- Use %(title)s.%(ext)s output templates to preserve context
-- Store archives to prevent duplicate downloads
-
----
-
-## 10. Troubleshooting and Edge Cases
-
-- HLS playlists may rotate segments; retry on 404
-- Age-gate or consent modals can block player config
-- Some videos are externally embedded and require provider-specific handling
-
----
-
-## 11. Conclusion
-
-Porntrex uses a KVS-style delivery model with MP4 and HLS variants. A robust downloader should first parse player config for direct media URLs, then fall back to HLS manifests and network inspection. yt-dlp remains the primary extraction tool, with ffmpeg and streamlink as reliable backups.
-
-| Tool | Best Use Case | Notes |
-|------|---------------|-------|
-| yt-dlp | Primary downloader for MP4/HLS | Supports cookies, format selection, retries |
-| ffmpeg | Remuxing and validation | Useful for HLS to MP4 conversion |
-| streamlink | Live/HLS fallback | Streams to file or pipes into ffmpeg |
-| aria2c | Multi-connection HTTP/HLS downloads | Good for large files and retries |
-| gallery-dl | Image-first or gallery-heavy sites | Best for gallery or attachment extraction |
-
-
----
-
-## Disclaimer and Ethical Use
-
-This document is provided for lawful, personal, or authorized use cases only. Always respect the site terms of service, content creator rights, and applicable laws. If DRM or explicit access controls are present, do not attempt to bypass them; use official downloads or creator-provided access instead.
-
-## Last Updated
-
-December 2025
-
-## Next Review
-
-90 days from last update or when site playback changes are observed.
-
-## Related
-
-- SERP Apps research index (internal)
-- SERP extension downloaders (internal)
-
-</details>
+PornTrex is a video-hosting platform that can expose media through player configs, direct files, and stream manifests. PornTrex Downloader is meant to make supported downloads easier for users who already have browser access to that content.
