@@ -5,6 +5,6 @@
   "input": "./INPUT_SCHEMA.json",
   "name": "porntrex-downloader",
   "readme": "../ACTOR.md",
-  "title": "PornTrex Downloader Browser Extension",
+  "title": "PornTrex Downloader",
   "version": "0.0"
 }
