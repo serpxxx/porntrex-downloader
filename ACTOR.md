@@ -1,4 +1,4 @@
-# PornTrex Downloader Browser Extension
+# PornTrex Downloader
 
 > Download PornTrex videos as MP4 files directly from the watch page in your browser.
 
