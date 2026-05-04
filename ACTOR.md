@@ -1,8 +1,12 @@
-# PornTrex Downloader
+# PornTrex Video Downloader | How to Download PornTrex Videos
 
 > Download PornTrex videos as MP4 files directly from the watch page in your browser.
 
-![Porntrex Downloader](https://raw.githubusercontent.com/serpxxx/porntrex-downloader/main/assets/workflow-preview.webp)
+## Get it Here
+
+Get it here: https://serp.ly/porntrex-downloader
+
+![PornTrex Downloader](https://raw.githubusercontent.com/serpxxx/porntrex-downloader/main/assets/workflow-preview.webp)
 
 PornTrex Downloader is a browser extension built for users who want a cleaner way to save PornTrex videos for offline viewing. It detects supported video sources from PornTrex pages, lets you pick from the qualities exposed by the player, and saves finished downloads as standard MP4 files that are easy to replay later.
 
@@ -11,11 +15,6 @@ PornTrex Downloader is a browser extension built for users who want a cleaner wa
 - Choose from the quality options exposed by the player
 - Keep offline copies for travel, archives, or later viewing
 - Use a browser-first workflow instead of command-line tools
-
-## Get it Here
-
-Get it here: https://serp.ly/porntrex-downloader
-
 ## Table of Contents
 
 - [Why PornTrex Downloader](#why-porntrex-downloader)
